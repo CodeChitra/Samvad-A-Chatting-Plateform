@@ -16,7 +16,7 @@ function Message({ message }) {
                 <span>just now</span>
             </div>
             <div className="msgContent">
-                <p>{message.text}</p>
+                {message.text && <p>{message.text}</p>}
                 {message.img && <img src={message.img} alt="" />}
             </div>
         </div>

@@ -6,6 +6,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 
   .wrapper {
     height: 75%;
@@ -29,6 +30,15 @@
         justify-content: center;
         align-items: center;
         gap: 15px;
+        button {
+          background-color: transparent;
+          border: none;
+          a {
+            text-decoration: underline;
+            color: black;
+            font-weight: 500;
+          }
+        }
       }
     }
     .right {
@@ -67,4 +77,10 @@
       }
     }
   }
+}
+.credit {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  color: white;
 }

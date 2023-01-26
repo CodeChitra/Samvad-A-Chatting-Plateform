@@ -7,6 +7,7 @@ $dark-color: #0a2647;
   height: 100vh;
   background: url("https://images.pexels.com/photos/2923591/pexels-photo-2923591.jpeg?auto=compress&cs=tinysrgb&w=900")
     no-repeat center center/cover;
+  position: relative;
 
   .wrapper {
     height: 85%;
@@ -190,4 +191,10 @@ $dark-color: #0a2647;
       }
     }
   }
+}
+.credit {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  color: white;
 }

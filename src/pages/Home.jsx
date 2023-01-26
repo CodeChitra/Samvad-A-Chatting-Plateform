@@ -9,6 +9,7 @@ function Home() {
                 <Sidebar />
                 <Mainbar />
             </div>
+            <div className="credit">Developed By Akash Deep Chitransh!</div>
         </div>
     )
 }

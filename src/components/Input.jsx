@@ -19,67 +19,74 @@ function Input() {
     }
 
     const handleSendMessage = async () => {
-        if (img) {
-            const storageRef = ref(storage, uuid());
+        if (text !== "") {
 
-            const uploadTask = uploadBytesResumable(storageRef, img);
+            if (img) {
+                const storageRef = ref(storage, uuid());
 
-            uploadTask.on('state_changed',
-                (snapshot) => {
+                const uploadTask = uploadBytesResumable(storageRef, img);
 
-                },
-                (error) => {
-                    console.log(error.message);
-                },
-                () => {
-                    getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-                        try {
-                            await updateDoc(doc(db, "chats", userData.chatId), {
-                                messages: arrayUnion({
-                                    id: uuid(),
-                                    text,
-                                    senderId: currentUser.uid,
-                                    date: Timestamp.now(),
-                                    img: downloadURL
+                uploadTask.on('state_changed',
+                    (snapshot) => {
+
+                    },
+                    (error) => {
+                        console.log(error.message);
+                    },
+                    () => {
+                        getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+                            try {
+                                await updateDoc(doc(db, "chats", userData.chatId), {
+                                    messages: arrayUnion({
+                                        id: uuid(),
+                                        text,
+                                        senderId: currentUser.uid,
+                                        date: Timestamp.now(),
+                                        img: downloadURL
+                                    })
                                 })
-                            })
-                        }
-                        catch (err) {
-                            console.log("Error ,", err.message);
-                        }
+                            }
+                            catch (err) {
+                                console.log("Error ,", err.message);
+                            }
 
-                    });
-                }
-            );
-        }
-        else {
-            await updateDoc(doc(db, "chats", userData.chatId), {
-                messages: arrayUnion({
-                    id: uuid(),
-                    text,
-                    senderId: currentUser.uid,
-                    date: Timestamp.now()
+                        });
+                    }
+                );
+            }
+            else {
+                await updateDoc(doc(db, "chats", userData.chatId), {
+                    messages: arrayUnion({
+                        id: uuid(),
+                        text,
+                        senderId: currentUser.uid,
+                        date: Timestamp.now()
+                    })
                 })
+            }
+            await updateDoc(doc(db, "userChats", currentUser.uid), {
+                [userData.chatId + ".lastMessage"]: {
+                    text
+                },
+                [userData.chatId + ".data"]: serverTimestamp()
             })
+            await updateDoc(doc(db, "userChats", userData.user.uid), {
+                [userData.chatId + ".lastMessage"]: {
+                    text
+                },
+                [userData.chatId + ".data"]: serverTimestamp()
+            })
+            setText("");
+            setImg(null);
         }
-        await updateDoc(doc(db, "userChats", currentUser.uid), {
-            [userData.chatId + ".lastMessage"]: {
-                text
-            },
-            [userData.chatId + ".data"]: serverTimestamp()
-        })
-        await updateDoc(doc(db, "userChats", userData.user.uid), {
-            [userData.chatId + ".lastMessage"]: {
-                text
-            },
-            [userData.chatId + ".data"]: serverTimestamp()
-        })
-        setText("");
-        setImg(null);
+    }
+
+    const handlePressEnter = (e) => {
+        e.code === "Enter" && handleSendMessage();
     }
     return (
         <div className='input'>
-            <input type="text" placeholder='Type here...' onChange={handleSendText} value={text} />
+            <input type="text" placeholder='Type here...' onChange={handleSendText} onKeyDown={handlePressEnter} value={text} />
             <div className="send">
                 <input type="file" id='photo' style={{ display: "none" }} onChange={handleSendImage} />
                 <label htmlFor="photo">

@@ -39,6 +39,7 @@ function Login() {
                     </form>
                 </div>
             </div>
+            <div className="credit">Developed By Akash Deep Chitransh!</div>
         </div>
     )
 }
