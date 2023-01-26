@@ -19,7 +19,6 @@ function Register() {
         try {
             const res = await createUserWithEmailAndPassword(auth, email, password)
             //to get user --> res.user
-            console.log(res.user);
             const storageRef = ref(storage, displayName);
 
             const uploadTask = uploadBytesResumable(storageRef, avatar);

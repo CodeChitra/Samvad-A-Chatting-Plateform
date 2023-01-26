@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import UserContext from '../context/UserContext'
 
 function MainNavbar() {
+    const { userData } = useContext(UserContext);
     return (
         <div className='mainNavbar'>
             <div className="peopleInfo">
-                <span>Rahul</span>
+                <span>{userData.user.displayName}</span>
             </div>
         </div>
     )

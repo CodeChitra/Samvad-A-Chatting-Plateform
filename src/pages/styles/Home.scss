@@ -126,7 +126,8 @@ $dark-color: #0a2647;
             max-width: 80%;
             gap: 10px;
             p {
-              background-color: white;
+              background-color: rgb(22, 21, 21);
+              color: white;
               padding: 10px;
               border-radius: 0px 15px 15px 20px;
               max-width: max-content;
@@ -141,7 +142,7 @@ $dark-color: #0a2647;
             .msgContent {
               align-items: flex-end;
               p {
-                background-color: aquamarine;
+                background-color: rgb(25, 64, 194);
                 color: white;
                 border-radius: 15px 0px 15px 20px;
               }
