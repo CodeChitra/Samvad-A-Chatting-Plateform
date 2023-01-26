@@ -1,7 +1,24 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase/firebase';
 import "./styles/Login.scss";
 function Login() {
+    const [err, setErr] = useState("");
+    const navigate = useNavigate();
+    const handleFormSubmit = async (e) => {
+        e.preventDefault();
+        const email = e.target[0].value;
+        const password = e.target[1].value;
+
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            navigate("/");
+        }
+        catch (error) {
+            setErr(error.message);
+        }
+    }
     return (
         <div className='login'>
             <div className="wrapper">
@@ -14,10 +31,11 @@ function Login() {
                 </div>
                 <div className="right">
                     <h1>Login To Your Account</h1>
-                    <form>
+                    <form onSubmit={handleFormSubmit}>
                         <input type="email" placeholder='Enter Email' />
                         <input type="password" placeholder='Enter Password' />
-                        <button>Login</button>
+                        <button type='submit'>Login</button>
+                        {err && <span>{err}</span>}
                     </form>
                 </div>
             </div>
