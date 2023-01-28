@@ -7,7 +7,7 @@ function Navbar() {
     return (
         <div className='navbar'>
             <div className="logo">
-                Fire Chat
+                Samvad
             </div>
             <div className="userProfile">
                 <img src={currentUser.photoURL} alt="" />
