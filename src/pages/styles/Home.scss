@@ -19,6 +19,16 @@ $dark-color: #0a2647;
       flex: 1;
       background-color: $light-color;
 
+      .people {
+        .userChat {
+          .userInfo {
+            p {
+              font-size: 13px;
+            }
+          }
+        }
+      }
+
       .navbar {
         background-color: $dark-color;
         display: flex;
